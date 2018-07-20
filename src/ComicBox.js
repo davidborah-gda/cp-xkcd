@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import './ComicBox.css';
 import axios from 'axios';
 
+function randomNumber(lower, upper) {
+  const min = Math.ceil(lower);
+  const max = Math.floor(upper);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 class ComicBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      number: 1,
       comic: {},
       success: false,
       error: null,
@@ -15,8 +19,12 @@ class ComicBox extends Component {
   }
 
   componentDidMount() {
-    const { number } = this.state;
-    const url = `http://localhost:7042/comic/${number}`;
+    this.fetchRandomComic();
+  }
+
+  fetchRandomComic() {
+    const number = randomNumber(1, 2000);
+    const url = `/comic/${number}`;
     axios.get(url).then((response) => {
       this.setState({
         comic: response.data,
@@ -46,12 +54,16 @@ class ComicBox extends Component {
         </h1>
       );
     }
+
     return (
       <div className="ComicBox-container">
-        <h1>
+        <h1 className="ComicBox-title">
           {comic.safe_title}
         </h1>
-        <img src={comic.img} alt={comic.alt} />
+        <button type="button" onClick={this.fetchRandomComic.bind(this)} className="ComicBox-button">
+        Random Comic
+        </button>
+        <img src={comic.img} alt={comic.alt} className="ComicBox-image" />
       </div>
     );
   }

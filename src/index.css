@@ -1,3 +1,7 @@
 body {
     background-color: #96A8C8;
 }
+
+* {
+    box-sizing: border-box;
+}
