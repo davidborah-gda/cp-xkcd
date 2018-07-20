@@ -6,7 +6,7 @@ class ComicBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      number: 0,
+      number: 1,
       comic: {},
       success: false,
       error: null,
@@ -14,8 +14,8 @@ class ComicBox extends Component {
   }
 
   componentDidMount() {
-    // const url = 'https://xkcd.com/614/info.0.json';
-    const url = 'https://jsonplaceholder.typicode.com/users/1';
+    const { number } = this.state;
+    const url = `http://localhost:7042/comic/${number}`;
     axios.get(url).then((response) => {
       this.setState({
         comic: response.data,
@@ -30,7 +30,7 @@ class ComicBox extends Component {
   }
 
   render() {
-    const { success, error } = this.state;
+    const { success, error, comic } = this.state;
     if (error) {
       return (
         <p>
@@ -47,7 +47,10 @@ class ComicBox extends Component {
     }
     return (
       <div className="ComicBox-container">
-        Here Be Comics
+        <h1>
+          {comic.safe_title}
+        </h1>
+        <img src={comic.img} alt={comic.alt} />
       </div>
     );
   }

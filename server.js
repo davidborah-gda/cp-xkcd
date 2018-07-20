@@ -1,11 +1,12 @@
 
 const express = require('express');
-
 const axios = require('axios');
+const cors = require('cors');
 
 const server = express();
-
 const port = process.env.PORT || 7042;
+
+server.use(cors());
 
 server.get('/', (requestAnimationFrame, response) => {
   response.send('Hey!!! This is working!');
