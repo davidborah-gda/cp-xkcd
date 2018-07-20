@@ -7,10 +7,7 @@ const server = express();
 const port = process.env.PORT || 7042;
 
 server.use(cors());
-
-server.get('/', (requestAnimationFrame, response) => {
-  response.send('Hey!!! This is working!');
-});
+server.use(express.static('build'));
 
 server.get('/comic/:number', (request, response) => {
   const { number } = request.params;
