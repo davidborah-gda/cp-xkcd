@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './ComicBox.css';
 import axios from 'axios';
 
+
 class ComicBox extends Component {
   constructor(props) {
     super(props);
